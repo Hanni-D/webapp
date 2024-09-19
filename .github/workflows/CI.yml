@@ -16,12 +16,12 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
-
-      - name: setup Docker
-        uses: docker-practice/actions-setup-docker@v1
-
+        
+      - name: Docker Setup Buildx
+        uses: docker/setup-buildx-action@v3.6.1
+        
       - name: Build Docker image
-        run: docker build . -t hanni4590/webapp-demo:latest
+        run: docker buildx build -t hanni4590/webapp-demo:latest .
 
       - name: login to Docker Hub
         run: docker login -u {{ secrets.docker_user }} -p {{ secrets.docker_pass}}
