@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build_Docker:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build . -t hanni4590/webapp-demo:latest
+
+      - name: login to Docker Hub
+        run: docker login -u {{ secrets.docker_user }} -p {{ secrets.docker_pass}}
+
+      - name: push image to Docker Hub
+        run: docker push hanni4590/webapp-demo:latest
+
