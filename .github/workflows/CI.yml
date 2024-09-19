@@ -17,6 +17,9 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
 
+      - name: setup Docker
+        uses: docker-practice/actions-setup-docker@v1
+
       - name: Build Docker image
         run: docker build . -t hanni4590/webapp-demo:latest
 
